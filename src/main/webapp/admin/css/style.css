@@ -1,0 +1,125 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container-fluid {
+  background: #34495e;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.wrapper {
+  width: 800px;
+  background: #fff;
+}
+
+header,
+nav {
+  width: 800px;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.blogs-container, .accounts-container {
+  /* height: 1000px;
+    overflow-y: scroll; */
+  margin-top: 50px;
+}
+
+.blogs-container .blogs-wrapper,
+.accounts-container .accounts-wrapper {
+  padding: 10px;
+}
+
+.blog-item,
+.account-item {
+  border: 1px solid #dfe6e9;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 4px;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.title {
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.timer {
+  font-size: 12px;
+}
+
+.content {
+  font-size: 16px;
+}
+
+.email-User {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.action,
+.account-action {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/*  */
+.action button,
+.account-action button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  padding: 5px;
+}
+
+.action a,
+.account-action a {
+  color: #000;
+}
+
+.edit-blog,
+.delete-blog,
+.edit-account,
+.delete-account {
+  transition: all 0.3s;
+}
+
+.edit-blog:hover a,
+.delete-blog:hover,
+.edit-account:hover a,
+.delete-account:hover {
+  color: red;
+}
+
+.account-item .email {
+  font-size: 18px;
+}
+
+.account-item .password {
+  font-size: 14px;
+  border: none;
+  outline: none;
+  background: #fff;
+}
+
+.enable,
+.disable {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.enable {
+  color: #2ecc71;
+}
+
+.disable {
+  color: #c0392b;
+}

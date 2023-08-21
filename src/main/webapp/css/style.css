@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container-fluid {
+  background: #34495e;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.wrapper {
+  width: 800px;
+  overflow: hidden;
+  background: #fff;
+}
+
+header,
+nav {
+  width: 800px;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.blogs-container {
+  /* height: 1000px;
+    overflow-y: scroll; */
+    margin-top: 50px;
+}
+
+.blogs-container .blogs-wrapper {
+  padding: 10px;
+}
+
+.blog-item {
+  border: 1px solid #dfe6e9;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 4px;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.title {
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.timer{
+    font-size: 12px;
+}
+
+.content{
+    font-size: 16px;
+}
+
+.email-User{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.action{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.action button{
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  padding: 5px;
+}
+
+.edit-blog, .delete-blog{
+  transition: all .3s;
+}
+
+.edit-blog:hover, .delete-blog:hover{
+  color: red;
+}
+
+/*  */
+.wrapper-edit{
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.wrapper-edit .title-edit {
+  margin-bottom: 20px;
+}
+.wrapper-edit .title-edit label{
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.wrapper-edit .title-edit input{
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #dfe6e9;
+  padding: 5px 10px;
+  outline: none;
+}
+.wrapper-edit button{
+  padding: 5px 10px;
+  border: none;
+  background: #3498db;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  transition: all .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  outline: none;
+  float: right;
+  margin-left: 6px;}
