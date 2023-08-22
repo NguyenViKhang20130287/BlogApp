@@ -1,4 +1,6 @@
-<%-- JSP --%>
+<%@ page import="java.util.List" %>
+<%@ page import="Dao.blogDao" %>
+<%@ page import="Entity.blog" %><%-- JSP --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -59,66 +61,18 @@
 
         <div class="blogs-container">
           <div class="blogs-wrapper">
+            <% List<blog> listBlog = new blogDao().getAllBlog();
+            for(blog b : listBlog) {%>
             <div class="blog-item">
-              <h3 class="title">ten tieu de</h3>
-              <span class="timer">2023-08-19 12:07:10</span>
+              <h3 class="title"><%=b.getTitle()%></h3>
+              <span class="timer"><%=b.getCreateAt()%></span>
               <p class="content">
-                noi dung noi dung noi dung noi dung noi dung noi dung noi dung
-                noi dungnoi dungnoi dung noi dung noi dung noi dung noi dung noi
-                dung noi dung noi dung noi dungnoi dungnoi dung
+                <%=b.getContent()%>
               </p>
-              <span class="email-User"> vikhang17112002@gmail.com </span>
+              <span class="email-User"> <%=b.getEmail()%> </span>
             </div>
-            <div class="blog-item">
-              <h3 class="title">ten tieu de</h3>
-              <span class="timer">2023-08-19 12:07:10</span>
-              <p class="content">
-                noi dung noi dung noi dung noi dung noi dung noi dung noi dung
-                noi dungnoi dungnoi dung noi dung noi dung noi dung noi dung noi
-                dung noi dung noi dung noi dungnoi dungnoi dung
-              </p>
-              <span class="email-User"> vikhang17112002@gmail.com </span>
-            </div>
-            <div class="blog-item">
-              <h3 class="title">ten tieu de</h3>
-              <span class="timer">2023-08-19 12:07:10</span>
-              <p class="content">
-                noi dung noi dung noi dung noi dung noi dung noi dung noi dung
-                noi dungnoi dungnoi dung noi dung noi dung noi dung noi dung noi
-                dung noi dung noi dung noi dungnoi dungnoi dung
-              </p>
-              <span class="email-User"> vikhang17112002@gmail.com </span>
-            </div>
-            <div class="blog-item">
-              <h3 class="title">ten tieu de</h3>
-              <span class="timer">2023-08-19 12:07:10</span>
-              <p class="content">
-                noi dung noi dung noi dung noi dung noi dung noi dung noi dung
-                noi dungnoi dungnoi dung noi dung noi dung noi dung noi dung noi
-                dung noi dung noi dung noi dungnoi dungnoi dung
-              </p>
-              <span class="email-User"> vikhang17112002@gmail.com </span>
-            </div>
-            <div class="blog-item">
-              <h3 class="title">ten tieu de</h3>
-              <span class="timer">2023-08-19 12:07:10</span>
-              <p class="content">
-                noi dung noi dung noi dung noi dung noi dung noi dung noi dung
-                noi dungnoi dungnoi dung noi dung noi dung noi dung noi dung noi
-                dung noi dung noi dung noi dungnoi dungnoi dung
-              </p>
-              <span class="email-User"> vikhang17112002@gmail.com </span>
-            </div>
-            <div class="blog-item">
-              <h3 class="title">ten tieu de</h3>
-              <span class="timer">2023-08-19 12:07:10</span>
-              <p class="content">
-                noi dung noi dung noi dung noi dung noi dung noi dung noi dung
-                noi dungnoi dungnoi dung noi dung noi dung noi dung noi dung noi
-                dung noi dung noi dung noi dungnoi dungnoi dung
-              </p>
-              <span class="email-User"> vikhang17112002@gmail.com </span>
-            </div>
+            <%}%>
+
           </div>
         </div>
       </div>

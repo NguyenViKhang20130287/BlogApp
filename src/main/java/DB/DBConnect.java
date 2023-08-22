@@ -10,7 +10,11 @@ public class DBConnect {
     Connection connection;
     private static DBConnect install;
 
-    private DBConnect() {
+    public Connection getConnection(){
+        return connection;
+    }
+
+    public DBConnect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(this.url, this.user, this.pass);
