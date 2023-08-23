@@ -4,9 +4,6 @@ var loginBtn = document.querySelector('#login')
 var messageEmail = document.querySelector('.message-email')
 var messagePass = document.querySelector('.message-password')
 
-var checkEmail = false
-var checkPass = false
-
 //
 function ValidateEmail(mail) {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
@@ -21,11 +18,11 @@ email.addEventListener('input', function (e) {
     // console.log('check: ', ValidateEmail(emailValue));
     if (!ValidateEmail(emailValue)) {
         messageEmail.style.visibility = 'initial';
-        checkEmail = false
+        loginBtn.disabled = true
     }
     if (ValidateEmail(emailValue)) {
         messageEmail.style.visibility = 'hidden';
-        checkEmail = true
+        loginBtn.disabled = false
     }
 })
 
@@ -35,19 +32,9 @@ pass.addEventListener('input', function (e) {
     // console.log('check: ', ValidateEmail(emailValue));
     if (passwordValue.trim().length < 8) {
         messagePass.style.visibility = 'initial';
-        checkPass = false;
+        loginBtn.disabled = true
     } else {
         messagePass.style.visibility = 'hidden';
-        checkPass = true;
-    }
-})
-
-
-// 
-
-loginBtn.addEventListener('click', function(e){
-    e.preventDefault();
-    if (checkEmail === false || checkPass === false) {
-        alert('Vui lòng nhập lại !');
+        loginBtn.disabled = false
     }
 })

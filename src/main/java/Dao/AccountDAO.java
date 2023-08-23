@@ -41,6 +41,7 @@ public class AccountDAO {
         return null;
     }
 
+    // sign up account
     public void signUpAccount(String email, String password) {
         String query = "INSERT INTO `user`(`user`.email, `user`.`password`, `user`.role_id, `user`.is_locked) " +
                 "VALUES (?, ?, ?, ?)";
@@ -60,8 +61,35 @@ public class AccountDAO {
         }
     }
 
+    // sign in account
+    public User signInAccount(String email, String password){
+        User u = new User();
+        String query = "SELECT * FROM `user` WHERE `user`.email = ? AND `user`.`password` = ?";
+        try {
+            statement = DBConnect.getInstall().get();
+            if(statement != null){
+                ps = new DBConnect().getConnection().prepareStatement(query);
+                ps.setString(1, email);
+                ps.setString(2, password);
+                rs = ps.executeQuery();
+                while (rs.next()){
+                    u.setId(rs.getInt(1));
+                    u.setEmail(rs.getString(2));
+                    u.setPassword(rs.getString(3));
+                    u.setRole_id(rs.getInt(4));
+                    u.setIs_locked(rs.getInt(5));
+                    return u;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
 //        new AccountDAO().signUpAccount("k1@gmail.com", "11111111");
+//        System.out.println(new AccountDAO().signInAccount("vik080817@gmail.com", "11111111"));
     }
 
 }
