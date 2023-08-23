@@ -25,11 +25,11 @@ email.addEventListener('input', function (e) {
     // console.log('check: ', ValidateEmail(emailValue));
     if (!ValidateEmail(emailValue)) {
         messageEmail.style.visibility = 'initial';
-        checkEmail = false
+        signUpBtn.disabled = true
     }
     if (ValidateEmail(emailValue)) {
         messageEmail.style.visibility = 'hidden';
-        checkEmail = true
+        signUpBtn.disabled = false
     }
 })
 
@@ -39,10 +39,10 @@ pass.addEventListener('input', function (e) {
     // console.log('check: ', ValidateEmail(emailValue));
     if (passwordValue.trim().length < 8) {
         messagePass.style.visibility = 'initial';
-        checkPass = false;
+        signUpBtn.disabled = true
     } else {
         messagePass.style.visibility = 'hidden';
-        checkPass = true;
+        signUpBtn.disabled = false
     }
 })
 
@@ -55,17 +55,17 @@ confirmPassword.addEventListener('input', function (e) {
     let confirmPasswordValue = confirmPassword.value.trim();
     if (confirmPasswordValue !== passwordValue) {
         messageConfirmPass.style.visibility = 'inherit';
-        checkConfirm = false
+        signUpBtn.disabled = true
     } else {
         messageConfirmPass.style.visibility = 'hidden';
-        checkConfirm = true;
+        signUpBtn.disabled = false
     }
 })
 
 //
-signUpBtn.addEventListener('click', function(e){
-    e.preventDefault();
-    if (checkEmail === false || checkPass === false || checkConfirm === false) {
-        alert('Vui lòng nhập lại !');
-    }
-})
+// signUpBtn.addEventListener('click', function(e){
+//     e.preventDefault();
+//     if (checkEmail === false || checkPass === false || checkConfirm === false) {
+//         alert('Vui lòng nhập lại !');
+//     }
+// })

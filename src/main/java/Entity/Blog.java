@@ -1,6 +1,6 @@
 package Entity;
 
-public class blog {
+public class Blog {
     private int id;
     private String title;
     private String content;
@@ -10,11 +10,11 @@ public class blog {
 
     private String email;
 
-    public blog() {
+    public Blog() {
 
     }
 
-    public blog(int id, String title, String content, String createAt, String updateAt, String email) {
+    public Blog(int id, String title, String content, String createAt, String updateAt, String email) {
         this.id = id;
         this.title = title;
         this.content = content;

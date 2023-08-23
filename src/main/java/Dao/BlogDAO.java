@@ -1,7 +1,7 @@
 package Dao;
 
 import DB.DBConnect;
-import Entity.blog;
+import Entity.Blog;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,14 +10,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class blogDao {
+public class BlogDAO {
 
     Statement statement;
     PreparedStatement ps;
     ResultSet rs;
 
-    public List<blog> getAllBlog() {
-        List<blog> listBlog = new ArrayList<>();
+    public List<Blog> getAllBlog() {
+        List<Blog> listBlog = new ArrayList<>();
         String query = "SELECT\n" +
                 "\tblog.id,\n" +
                 "\tblog.title,\n" +
@@ -43,7 +43,7 @@ public class blogDao {
                 ps = new DBConnect().getConnection().prepareStatement(query);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    blog b = new blog();
+                    Blog b = new Blog();
                     b.setId(rs.getInt(1));
                     b.setTitle(rs.getString(2));
                     b.setContent(rs.getString(3));
@@ -63,7 +63,7 @@ public class blogDao {
     }
 
     public static void main(String[] args) {
-        System.out.println(new blogDao().getAllBlog());
+        System.out.println(new BlogDAO().getAllBlog());
     }
 
 }

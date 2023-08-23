@@ -19,10 +19,10 @@
     >
       <div class="wrapper">
         <h3 class="title">Đăng kí tài khoản</h3>
-        <form>
+        <form action="SignUpControl" method="get">
           <div class="box">
             <label for="">Email</label>
-            <input type="text" id="email" />
+            <input type="text" id="email" name="email" />
             <span
               class="message-email"
               style="color: red; font-size: 14px; visibility: hidden"
@@ -31,7 +31,7 @@
           </div>
           <div class="box">
             <label for="">Mật khẩu</label>
-            <input type="password" id="password" />
+            <input type="password" id="password" name="password" />
             <span
               class="message-password"
               style="color: red; font-size: 14px; visibility: hidden"
@@ -40,7 +40,7 @@
           </div>
           <div class="box">
             <label for="">Xác nhận mật khẩu</label>
-            <input type="password" id="confirm-password" />
+            <input type="password" id="confirm-password" name="confirm-password" />
             <span
               class="message-confirm-password"
               style="color: red; font-size: 14px; visibility: hidden"
@@ -55,5 +55,5 @@
       </div>
     </div>
   </body>
-  <script src="/js/validate-signup.js"></script>
+  <script src="./js/validate-signup.js"></script>
 </html>

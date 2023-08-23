@@ -35,7 +35,7 @@ label{
     margin-bottom: 5px;
 }
 
-#email, #password, #confirm-password, #otp-code{
+#email, #password, #confirm-password, #otp-code, #change-password{
     box-sizing: border-box;
     width: 100%;
     outline: none;
@@ -58,8 +58,8 @@ button{
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 12px;
 }
-
 button:hover{
     background: #2980b9;
 }
