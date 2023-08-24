@@ -15,7 +15,7 @@ public class AccountDAO {
     ResultSet rs;
 
     // check email exists
-    public User checkEmailSignUpIsExist(String email) {
+    public User checkEmailIsExist(String email) {
         String query = "SELECT * FROM `user` WHERE email = ?";
         try {
             statement = DBConnect.getInstall().get();
@@ -55,6 +55,8 @@ public class AccountDAO {
                 ps.setInt(4, 0);
                 ps.executeUpdate();
                 System.out.println("Sign up successfully ^^");
+
+                ps.close();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -80,6 +82,8 @@ public class AccountDAO {
                     u.setIs_locked(rs.getInt(5));
                     return u;
                 }
+                rs.close();
+                ps.close();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -87,9 +91,29 @@ public class AccountDAO {
         return null;
     }
 
+    // change password
+    public void changePassword(String email, String newPassword){
+        String query = "UPDATE `user` SET `user`.`password` = ? WHERE `user`.email = ?";
+        try {
+            statement = DBConnect.getInstall().get();
+            if(statement != null){
+                ps = new DBConnect().getConnection().prepareStatement(query);
+                ps.setString(2,email);
+                ps.setString(1, newPassword);
+                ps.executeUpdate();
+                System.out.println("Change password successfully ^^");
+
+                ps.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) {
 //        new AccountDAO().signUpAccount("k1@gmail.com", "11111111");
 //        System.out.println(new AccountDAO().signInAccount("vik080817@gmail.com", "11111111"));
+        new AccountDAO().changePassword("vik080817@gmail.com", "11111111");
     }
 
 }

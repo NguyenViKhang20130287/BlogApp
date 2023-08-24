@@ -14,39 +14,33 @@ import java.io.PrintWriter;
 import java.util.Properties;
 import java.util.Random;
 
-@WebServlet(name = "SignUpController", value = "/SignUpControl")
-public class SignUpControl extends HttpServlet {
+@WebServlet(name = "ForgotPasswordControl", value = "/ForgotPasswordControl")
+public class ForgotPasswordControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 
+        String email = request.getParameter("email");
+
         RequestDispatcher dispatcher = null;
         HttpSession mySession = request.getSession();
-
-        String emailValue = request.getParameter("email");
-        String passwordValue = request.getParameter("password");
-        String confirmPasswordValue = request.getParameter("confirm-password");
-//        response.getWriter().println("info: " + emailValue + " " + passwordValue + " " + confirmPasswordValue);
-        PrintWriter out = response.getWriter();
-
         int otpvalue = 0;
-
-
-        AccountDAO accountDAO = new AccountDAO();
-        User user = accountDAO.checkEmailIsExist(emailValue);
-        if (user != null) {
+//        response.getWriter().println(email);
+        PrintWriter out = response.getWriter();
+        User acc = new AccountDAO().checkEmailIsExist(email);
+        if (acc == null) {
             out.println("<script type=\"text/javascript\">");
-            out.println("alert('Tài khoản email đã tồn tại !!!');");
-            out.println("location='sign-up.jsp';");
+            out.println("alert('Tài khoản email chưa được đăng kí !!!');");
+            out.println("location='forgot-password.jsp';");
             out.println("</script>");
         } else {
             // random otp code
             Random rand = new Random();
             otpvalue = rand.nextInt(899999) + 100000;
 
-            String to = emailValue;
+            String to = email;
 
             Properties props = new Properties();
             props.put("mail.smtp.host", "smtp.gmail.com");
@@ -66,7 +60,7 @@ public class SignUpControl extends HttpServlet {
             // compose message
             try {
                 MimeMessage message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(emailValue));// change accordingly
+                message.setFrom(new InternetAddress(email));// change accordingly
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
                 message.setSubject("Xin chào");
                 message.setText("Mã OTP của bạn là: " + otpvalue);
@@ -76,18 +70,17 @@ public class SignUpControl extends HttpServlet {
             } catch (MessagingException e) {
                 throw new RuntimeException(e);
             }
-            dispatcher = request.getRequestDispatcher("otp-code.jsp");
+            dispatcher = request.getRequestDispatcher("otp-code-forgot-pass.jsp");
             request.setAttribute("message", "OTP is sent to your email id");
             //request.setAttribute("connection", con);
             mySession.setAttribute("otp", otpvalue);
-            mySession.setAttribute("email", emailValue);
-            mySession.setAttribute("password", passwordValue);
+            mySession.setAttribute("email-forgot-pass", email);
             dispatcher.forward(request, response);
             //request.setAttribute("status", "success");
 
         }
-
     }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

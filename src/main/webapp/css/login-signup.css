@@ -35,7 +35,7 @@ label{
     margin-bottom: 5px;
 }
 
-#email, #password, #confirm-password, #otp-code, #change-password{
+#email, #password, #confirm-password, #otp-code, #new-password{
     box-sizing: border-box;
     width: 100%;
     outline: none;

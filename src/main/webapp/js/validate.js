@@ -5,6 +5,7 @@ var messageEmail = document.querySelector('.message-email')
 var messagePass = document.querySelector('.message-password')
 
 //
+
 function ValidateEmail(mail) {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
         return (true)
@@ -38,3 +39,5 @@ pass.addEventListener('input', function (e) {
         loginBtn.disabled = false
     }
 })
+
+

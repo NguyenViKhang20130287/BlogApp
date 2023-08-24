@@ -20,10 +20,10 @@
     >
       <div class="wrapper">
         <h3 class="title">Lấy lại mật khẩu</h3>
-        <form>
+        <form method="get" action="ForgotPasswordControl">
             <div class="box">
                 <label for="">Email</label>
-                <input type="text" id="email">
+                <input type="text" id="email" name="email">
             </div>
             <button type="submit">Lấy lại mật khẩu</button>
         </form>
