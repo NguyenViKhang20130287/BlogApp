@@ -53,7 +53,7 @@
 
                         <%--       CHECK ACCOUNT LOGGED                 --%>
                         <% if (acc != null) { %>
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" href="blogs-user.jsp"><%=acc.getEmail()%>
                             </a>
                         </li>
