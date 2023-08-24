@@ -79,7 +79,16 @@ nav {
   transition: all .3s;
 }
 
-.edit-blog:hover, .delete-blog:hover{
+.edit-blog a{
+  color: #000;
+  transition: all .3s;
+}
+
+.edit-blog:hover a{
+  color: #2ecc71;
+}
+
+.delete-blog:hover{
   color: red;
 }
 

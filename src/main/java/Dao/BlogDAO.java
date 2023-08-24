@@ -6,9 +6,11 @@ import Entity.Blog;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class BlogDAO {
 
@@ -16,6 +18,7 @@ public class BlogDAO {
     PreparedStatement ps;
     ResultSet rs;
 
+    // load all blog
     public List<Blog> getAllBlog() {
         List<Blog> listBlog = new ArrayList<>();
         String query = "SELECT\n" +
@@ -62,6 +65,7 @@ public class BlogDAO {
         return listBlog;
     }
 
+    // post new blog
     public void postBlog(String title, String content, int user_id) {
         String query_1 = "INSERT INTO blog (blog.title, blog.content, blog.createAt, blog.updateAt) VALUES (?, ?, ?, ?)";
         String query_2 = "INSERT INTO blogs (blogs.blog_id, blogs.user_id) VALUES (?, ?)";
@@ -105,9 +109,51 @@ public class BlogDAO {
         }
     }
 
+    // load blog of account logged
+    public List<Blog> getBlogOfUserLogged(int user_id) {
+        List<Blog> listBlog = new ArrayList<>();
+        String query = "SELECT blog.id, blog.title, blog.content, blog.createAt, blog.updateAt " +
+                "FROM blog JOIN blogs ON blog.id = blogs.blog_id " +
+                "WHERE blogs.user_id = ?";
+        try {
+            statement = DBConnect.getInstall().get();
+            if (statement != null) {
+                ps = new DBConnect().getConnection().prepareStatement(query);
+                ps.setInt(1, user_id);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Blog b = new Blog();
+                    b.setId(rs.getInt(1));
+                    b.setTitle(rs.getString(2));
+                    b.setContent(rs.getString(3));
+                    b.setCreateAt(rs.getString(4));
+                    b.setUpdateAt(rs.getString(5));
+                    listBlog.add(b);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listBlog;
+    }
+
+
     public static void main(String[] args) {
-//        System.out.println(new BlogDAO().getAllBlog());
-        new BlogDAO().postBlog("title datetime", "content1 datetime", 3);
+        System.out.println(new BlogDAO().getAllBlog());
+//        new BlogDAO().postBlog("title datetime", "content1 datetime", 3);
+//        System.out.println(new BlogDAO().getBlogOfUserLogged(5));
+//        List<Blog> listB = new BlogDAO().getBlogOfUserLogged(5);
+//        for(Blog b : listB){
+//            if(b.getId() == 9){
+//                System.out.println("Blog: " + b);
+//                System.out.println("------------------");
+//                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.US);
+//                LocalDateTime createAt = LocalDateTime.parse(b.getCreateAt(), dtf);
+//                LocalDateTime updateAt = LocalDateTime.parse(b.getUpdateAt(), dtf);
+//                int diff = createAt.compareTo(updateAt);
+//                System.out.println("diff value: " + diff);
+//            }
+//        }
     }
 
 }

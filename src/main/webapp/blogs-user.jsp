@@ -1,4 +1,10 @@
-<%@ page import="Entity.User" %><%----%>
+<%@ page import="Entity.User" %>
+<%@ page import="java.util.List" %>
+<%@ page import="Entity.Blog" %>
+<%@ page import="Dao.BlogDAO" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.util.Locale" %><%----%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%----%>
@@ -42,10 +48,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="post-blog.jsp">Đăng blog</a>
                         </li>
-                        <%--       CHECK ACCOUNT LOGGED                 --%>
                         <% HttpSession sessionAcc = request.getSession();
-                            User acc = (User) sessionAcc.getAttribute("accLogged");
-                            if (acc != null) { %>
+                            User acc = (User) sessionAcc.getAttribute("accLogged");%>
+
+                        <%--       CHECK ACCOUNT LOGGED                 --%>
+                        <% if (acc != null) { %>
                         <li class="nav-item">
                             <a class="nav-link" href="blogs-user.jsp"><%=acc.getEmail()%>
                             </a>
@@ -53,8 +60,8 @@
                         <% } else { %>
                         <% response.sendRedirect("login.jsp"); %>
                         <% } %>
-                        <%--                        --%>
                         <%--          LOGOUT ACCOUNT              --%>
+
                         <li class="nav-item">
                             <a class="nav-link"
                                href="LogoutControl"
@@ -71,79 +78,39 @@
         <div class="blogs-container">
             <div class="blogs-wrapper">
 
+                <% List<Blog> listBlog = new BlogDAO().getBlogOfUserLogged(acc.getId());
+                    for (Blog b : listBlog) {%>
                 <div class="blog-item">
                     <div class="main">
-                        <h3 class="title">ten tieu de</h3>
-                        <span class="timer">2023-08-19 12:07:10</span>
+                        <h3 class="title"><%=b.getTitle()%>
+                        </h3>
+                        <% DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.US);
+                            LocalDateTime createAt = LocalDateTime.parse(b.getCreateAt(), dtf);
+                            LocalDateTime updateAt = LocalDateTime.parse(b.getUpdateAt(), dtf);
+                            int diff = createAt.compareTo(updateAt);
+                            if (diff < 0) {%>
+                        <span class="timer">
+                            Cập nhật lúc: <%=b.getUpdateAt()%>
+                        </span>
+                        <%} else {%>
+                        <span class="timer">
+                            Vừa đăng lúc: <%=b.getCreateAt()%>
+                        </span>
+                        <%}%>
+
                         <p class="content">
-                            noi dung noi dung noi dung noi dung noi dung noi dung noi dung
-                            noi dungnoi dungnoi dung noi dung noi dung noi dung noi dung noi
-                            dung noi dung noi dung noi dungnoi dungnoi dung
+                            <%=b.getContent()%>
                         </p>
-                        <span class="email-User"> vikhang17112002@gmail.com </span>
+                        <%--                        <span class="email-User"> vikhang17112002@gmail.com </span>--%>
                     </div>
                     <div class="action">
-                        <button class="edit-blog"><a href="edit-blog.jsp" style="color: #000;"><i
+                        <button class="edit-blog"><a href="edit-blog.jsp"><i
                                 class="fa-regular fa-pen-to-square"></i></a></button>
                         <button class="delete-blog"><i class="fa-regular fa-trash-can"></i></button>
                     </div>
-
-
                 </div>
-                <div class="blog-item">
-                    <div class="main">
-                        <h3 class="title">ten tieu de</h3>
-                        <span class="timer">2023-08-19 12:07:10</span>
-                        <p class="content">
-                            noi dung noi dung noi dung noi dung noi dung noi dung noi dung
-                            noi dungnoi dungnoi dung noi dung noi dung noi dung noi dung noi
-                            dung noi dung noi dung noi dungnoi dungnoi dung
-                        </p>
-                        <span class="email-User"> vikhang17112002@gmail.com </span>
-                    </div>
-                    <div class="action">
-                        <button class="edit-blog"><i class="fa-regular fa-pen-to-square"></i></button>
-                        <button class="delete-blog"><i class="fa-regular fa-trash-can"></i></button>
-                    </div>
+                <% } %>
 
-
-                </div>
-                <div class="blog-item">
-                    <div class="main">
-                        <h3 class="title">ten tieu de</h3>
-                        <span class="timer">2023-08-19 12:07:10</span>
-                        <p class="content">
-                            noi dung noi dung noi dung noi dung noi dung noi dung noi dung
-                            noi dungnoi dungnoi dung noi dung noi dung noi dung noi dung noi
-                            dung noi dung noi dung noi dungnoi dungnoi dung
-                        </p>
-                        <span class="email-User"> vikhang17112002@gmail.com </span>
-                    </div>
-                    <div class="action">
-                        <button class="edit-blog"><i class="fa-regular fa-pen-to-square"></i></button>
-                        <button class="delete-blog"><i class="fa-regular fa-trash-can"></i></button>
-                    </div>
-
-
-                </div>
-                <div class="blog-item">
-                    <div class="main">
-                        <h3 class="title">ten tieu de</h3>
-                        <span class="timer">2023-08-19 12:07:10</span>
-                        <p class="content">
-                            noi dung noi dung noi dung noi dung noi dung noi dung noi dung
-                            noi dungnoi dungnoi dung noi dung noi dung noi dung noi dung noi
-                            dung noi dung noi dung noi dungnoi dungnoi dung
-                        </p>
-                        <span class="email-User"> vikhang17112002@gmail.com </span>
-                    </div>
-                    <div class="action">
-                        <button class="edit-blog"><i class="fa-regular fa-pen-to-square"></i></button>
-                        <button class="delete-blog"><i class="fa-regular fa-trash-can"></i></button>
-                    </div>
-
-
-                </div>
 
             </div>
         </div>
