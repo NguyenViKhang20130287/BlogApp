@@ -23,10 +23,19 @@ nav {
   background: #fff;
 }
 
-.blogs-container {
+.blogs-container, .empty-container {
   /* height: 1000px;
     overflow-y: scroll; */
-    margin-top: 50px;
+  margin-top: 50px;
+}
+
+.empty-container{
+  text-align: center;
+  padding: 20px;
+}
+
+.empty-container h1{
+  font-size: 25px;
 }
 
 .blogs-container .blogs-wrapper {

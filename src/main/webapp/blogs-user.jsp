@@ -79,7 +79,8 @@
             <div class="blogs-wrapper">
 
                 <% List<Blog> listBlog = new BlogDAO().getBlogOfUserLogged(acc.getId());
-                    for (Blog b : listBlog) {%>
+                    if (!listBlog.isEmpty()) {
+                        for (Blog b : listBlog) {%>
                 <div class="blog-item">
                     <div class="main">
                         <h3 class="title"><%=b.getTitle()%>
@@ -109,7 +110,12 @@
                         <button class="delete-blog"><i class="fa-regular fa-trash-can"></i></button>
                     </div>
                 </div>
-                <% } %>
+                <% }
+                } else { %>
+                <div class="empty-container">
+                    <h1>Bạn chưa có bài đăng nào !</h1>
+                </div>
+                <%}%>
 
 
             </div>
