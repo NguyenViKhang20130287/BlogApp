@@ -3,10 +3,10 @@ package Dao;
 import DB.DBConnect;
 import Entity.Blog;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,8 +62,52 @@ public class BlogDAO {
         return listBlog;
     }
 
+    public void postBlog(String title, String content, int user_id) {
+        String query_1 = "INSERT INTO blog (blog.title, blog.content, blog.createAt, blog.updateAt) VALUES (?, ?, ?, ?)";
+        String query_2 = "INSERT INTO blogs (blogs.blog_id, blogs.user_id) VALUES (?, ?)";
+        String query_3 = "SELECT MAX(blog.id) FROM blog";
+
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedDateTime = dateTime.format(dateTimeFormatter);
+
+        int blog_id = 0;
+        try {
+            statement = DBConnect.getInstall().get();
+            if (statement != null) {
+                ps = new DBConnect().getConnection().prepareStatement(query_1);
+                ps.setString(1, title);
+                ps.setString(2, content);
+                ps.setString(3, String.valueOf(LocalDateTime.now()));
+                ps.setString(4, String.valueOf(LocalDateTime.now()));
+                ps.executeUpdate();
+
+                PreparedStatement ps_2 = new DBConnect().getConnection().prepareStatement(query_2);
+                PreparedStatement ps_3 = new DBConnect().getConnection().prepareStatement(query_3);
+                rs = ps_3.executeQuery();
+                while (rs.next()) {
+                    blog_id = rs.getInt(1);
+                }
+
+                ps_2.setInt(1, blog_id);
+                ps_2.setInt(2, user_id);
+                ps_2.executeUpdate();
+
+                ps.close();
+                rs.close();
+                ps_3.close();
+                ps_2.close();
+
+                System.out.println("POST BLOG SUCCESSFULLY ^^");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) {
-        System.out.println(new BlogDAO().getAllBlog());
+//        System.out.println(new BlogDAO().getAllBlog());
+        new BlogDAO().postBlog("title datetime", "content1 datetime", 3);
     }
 
 }

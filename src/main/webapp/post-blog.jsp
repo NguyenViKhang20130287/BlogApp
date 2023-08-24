@@ -70,24 +70,27 @@
 
         <div class="wrapper-edit">
 
-            <div class="title-edit">
-                <label for="">tiêu đề</label>
-                <input type="text">
-            </div>
+            <form method="get" action="PostBlogControl">
+                <div class="title-edit">
+                    <label for="">tiêu đề</label>
+                    <input type="text" name="title">
+                </div>
 
-            <textarea id="editor1" name="editor1" cols="80" rows="10">
+                <textarea id="editor1" name="editor1" cols="80" rows="10">
                 <p>Nhập nội dung...</p>
             </textarea>
 
-            <!-- (3): Code Javascript thay thế textarea có id='editor1' bởi CKEditor -->
-            <script>
+                <!-- (3): Code Javascript thay thế textarea có id='editor1' bởi CKEditor -->
+                <script>
 
-                CKEDITOR.replace('editor1');
+                    CKEDITOR.replace('editor1');
 
-            </script>
-            <div class="action-edit">
-                <button>Đăng</button>
-            </div>
+                </script>
+                <div class="action-edit">
+                    <button>Đăng</button>
+                </div>
+            </form>
+
         </div>
 
     </div>
