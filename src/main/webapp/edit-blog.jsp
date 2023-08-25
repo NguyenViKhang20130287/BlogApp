@@ -1,4 +1,5 @@
-<%@ page import="Entity.User" %><%----%>
+<%@ page import="Entity.User" %>
+<%@ page import="Entity.Blog" %><%----%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%----%>
@@ -13,7 +14,7 @@
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <link rel="stylesheet" href="./css/style.css"/>
-    <script src="/ckeditor/ckeditor.js"></script>
+    <script src="./ckeditor/ckeditor.js"></script>
     <title>Sửa bài đăng</title>
 </head>
 <body>
@@ -69,27 +70,32 @@
             </nav>
         </header>
 
-        <div class="wrapper-edit">
+        <%Blog b = (Blog) request.getAttribute("dataBlog");%>
+        <form action="EditBlogControl" method="get">
+            <div class="wrapper-edit">
 
-            <div class="title-edit">
-                <label for="">tiêu đề</label>
-                <input type="text">
-            </div>
+                <input type="text" value="<%=b.getId()%>" name="blog_id" style="display: none">
 
-            <textarea id="editor1" name="editor2" cols="80" rows="10">
-              <p>Nhập nội dung...</p>
+                <div class="title-edit">
+                    <label for="">tiêu đề</label>
+                    <input type="text" name="title" value="<%=b.getTitle()%>" >
+                </div>
+
+                <textarea id="editor1" name="editor2" cols="80" rows="10">
+              <%=b.getContent()%>
           </textarea>
 
-            <!-- (3): Code Javascript thay thế textarea có id='editor1' bởi CKEditor -->
-            <script>
+                <!-- (3): Code Javascript thay thế textarea có id='editor1' bởi CKEditor -->
+                <script>
 
-                CKEDITOR.replace('editor2');
+                    CKEDITOR.replace('editor2');
 
-            </script>
-            <div class="action-edit">
-                <button>Đăng</button>
+                </script>
+                <div class="action-edit">
+                    <button type="submit">Đăng</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 </body>

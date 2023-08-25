@@ -137,9 +137,58 @@ public class BlogDAO {
         return listBlog;
     }
 
+    // get 1 blog with id
+    public Blog getDataBlog(int blog_id){
+        Blog b = new Blog();
+        String query = "SELECT * FROM blog WHERE blog.id = ?";
+        try {
+            statement = DBConnect.getInstall().get();
+            if(statement != null){
+                ps = new DBConnect().getConnection().prepareStatement(query);
+                ps.setInt(1, blog_id);
+                rs = ps.executeQuery();
+                while (rs.next()){
+                    b.setId(rs.getInt(1));
+                    b.setTitle(rs.getString(2));
+                    b.setContent(rs.getString(3));
+                    b.setCreateAt(rs.getString(4));
+                    b.setUpdateAt(rs.getString(5));
+//                    b.setEmail();
+                }
+                rs.close();
+                ps.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return b;
+    }
+
+    // edit blog
+    public void editBlog(int blog_id, String title, String content){
+        String query = "UPDATE blog SET blog.title = ?, blog.content = ?, blog.updateAt = ? WHERE blog.id = ?";
+        try {
+            statement = DBConnect.getInstall().get();
+            if(statement != null){
+                ps = new DBConnect().getConnection().prepareStatement(query);
+                ps.setString(1, title);
+                ps.setString(2, content);
+                ps.setString(3, String.valueOf(LocalDateTime.now()));
+                ps.setInt(4, blog_id);
+                ps.executeUpdate();
+
+                System.out.println("Edit blog successfully ^^");
+
+                ps.close();
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void main(String[] args) {
-        System.out.println(new BlogDAO().getAllBlog());
+//        System.out.println(new BlogDAO().getAllBlog());
 //        new BlogDAO().postBlog("title datetime", "content1 datetime", 3);
 //        System.out.println(new BlogDAO().getBlogOfUserLogged(5));
 //        List<Blog> listB = new BlogDAO().getBlogOfUserLogged(5);
@@ -154,6 +203,8 @@ public class BlogDAO {
 //                System.out.println("diff value: " + diff);
 //            }
 //        }
+//        System.out.println(new BlogDAO().getDataBlog(9));
+        new BlogDAO().editBlog(9, "anhyeuem", "yeu cailon");
     }
 
 }

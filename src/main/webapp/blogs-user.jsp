@@ -105,7 +105,7 @@
                         <%--                        <span class="email-User"> vikhang17112002@gmail.com </span>--%>
                     </div>
                     <div class="action">
-                        <button class="edit-blog"><a href="edit-blog.jsp"><i
+                        <button class="edit-blog"><a href="LoadDataBlog?blogID=<%=b.getId()%>"><i
                                 class="fa-regular fa-pen-to-square"></i></a></button>
                         <button class="delete-blog"><i class="fa-regular fa-trash-can"></i></button>
                     </div>
