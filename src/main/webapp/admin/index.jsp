@@ -22,7 +22,7 @@
     <div class="wrapper">
         <header>
             <nav class="navbar fixed-top navbar-expand-lg bg-secondary navbar-dark">
-                <a class="navbar-brand" href="../admin/index.jsp" style="font-weight: 500; color: #fff;">Admin</a>
+                <a class="navbar-brand" href="AdminHome" style="font-weight: 500; color: #fff;">Admin</a>
                 <button
                         class="navbar-toggler"
                         type="button"
@@ -37,12 +37,12 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="../admin/index.jsp"
+                            <a class="nav-link" href="AdminHome"
                             >Quản lí blog <span class="sr-only">(current)</span></a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="./admin/manager-user.jsp">Quản lí người dùng</a>
+                            <a class="nav-link" href="AdminUserManager">Quản lí người dùng</a>
                         </li>
 
                         <% HttpSession sessionAcc = request.getSession();

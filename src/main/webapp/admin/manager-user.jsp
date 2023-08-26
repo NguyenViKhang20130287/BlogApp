@@ -1,4 +1,5 @@
-<%@ page import="Entity.User" %><%----%>
+<%@ page import="Entity.User" %>
+<%@ page import="java.util.List" %><%----%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%----%>
@@ -12,7 +13,7 @@
             href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-    <link rel="stylesheet" href="./css/style.css"/>
+    <link rel="stylesheet" href="./admin/css/style.css"/>
     <title>Blog App - Quản lí người dùng</title>
 </head>
 <body>
@@ -20,7 +21,7 @@
     <div class="wrapper">
         <header>
             <nav class="navbar fixed-top navbar-expand-lg bg-secondary navbar-dark">
-                <a class="navbar-brand" href="../admin/index.jsp" style="font-weight: 500; color: #fff;">Admin</a>
+                <a class="navbar-brand" href="AdminHome" style="font-weight: 500; color: #fff;">Admin</a>
                 <button
                         class="navbar-toggler"
                         type="button"
@@ -35,7 +36,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="../admin/index.jsp"
+                            <a class="nav-link" href="AdminHome"
                             >Quản lí blog <span class="sr-only">(current)</span></a
                             >
                         </li>
@@ -49,13 +50,13 @@
                         <% if (acc != null) {
                             if (acc.getRole_id() == 0) {%>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../LogoutControl">Đăng xuất (<%=acc.getEmail()%>)</a>
+                            <a class="nav-link" href="LogoutControl">Đăng xuất (<%=acc.getEmail()%>)</a>
                         </li>
                         <% } else { %>
-                        <% response.sendRedirect("/../login.jsp"); %>
+                        <% response.sendRedirect("login.jsp"); %>
                         <% }
                         } else { %>
-                        <% response.sendRedirect("/../login.jsp"); %>
+                        <% response.sendRedirect("login.jsp"); %>
                         <% } %>
                         <%--                        --%>
                     </ul>
@@ -67,19 +68,30 @@
             <div class="accounts-wrapper">
 
                 <!--  -->
+                <% List<User> listUser = (List<User>) request.getAttribute("listAccountAdmin"); %>
+                <% for (User u : listUser) { %>
                 <div class="account-item">
-                    <h3 class="email">vikhang17112002@gmail.com</h3>
-                    <input type="password" class="password" value="11111111" disabled>
+                    <h3 class="email"><%=u.getEmail()%>
+                    </h3>
+                    <input type="password" class="password" value="<%=u.getPassword()%>" disabled>
+
+                    <% if (u.getIs_locked() == 0) { %>
                     <div class="status">
                         <span class="enable">Đang hoạt động</span>
-                        <!-- <span class="disable">Trạng thái: Bị khoá</span> -->
                     </div>
+                    <% } else { %>
+                    <div class="status">
+                        <span class="disable">Trạng thái: Bị khoá</span>
+                    </div>
+                    <% } %>
+
                     <div class="account-action">
                         <button class="edit-account"><a href="./admin/edit-account.jsp"><i
                                 class="fa-regular fa-pen-to-square"></i></a></button>
                         <button class="delete-account"><i class="fa-regular fa-trash-can"></i></button>
                     </div>
                 </div>
+                <%}%>
 
             </div>
         </div>
