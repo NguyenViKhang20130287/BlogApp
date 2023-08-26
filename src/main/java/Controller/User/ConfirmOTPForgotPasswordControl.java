@@ -1,4 +1,4 @@
-package Controller;
+package Controller.User;
 
 import Dao.AccountDAO;
 
@@ -8,8 +8,8 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "ConfirmOTPControl", value = "/ConfirmOTPControl")
-public class ConfirmOTPControl extends HttpServlet {
+@WebServlet(name = "ConfirmOTPForgotPasswordControl", value = "/ConfirmOTPForgotPasswordControl")
+public class ConfirmOTPForgotPasswordControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
@@ -19,30 +19,18 @@ public class ConfirmOTPControl extends HttpServlet {
         HttpSession session = request.getSession();
         PrintWriter out = response.getWriter();
 
-        String email = (String) session.getAttribute("email");
-        String password = (String) session.getAttribute("password");
-
         int otpIsSent = (int) session.getAttribute("otp");
         int otpValue = Integer.parseInt(request.getParameter("otp-code"));
 
-//        response.getWriter().println("OTP is sent: " + otpIsSent);
-//        response.getWriter().println("OTP value: " + otpValue);
-
         if(otpValue == otpIsSent){
-
-            // sign up
-            new AccountDAO().signUpAccount(email, password);
-
-            out.println("<script type=\"text/javascript\">");
-            out.println("alert('Đăng kí tài khoản thành công ^^');");
-            out.println("location='login.jsp';");
-            out.println("</script>");
+            response.sendRedirect("change-password.jsp");
         }else{
             out.println("<script type=\"text/javascript\">");
             out.println("alert('Mã xác nhận không chính xác !!!');");
-            out.println("location='otp-code.jsp';");
+            out.println("location='otp-code-forgot-pass.jsp';");
             out.println("</script>");
         }
+
     }
 
     @Override
