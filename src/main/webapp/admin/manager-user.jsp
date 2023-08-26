@@ -49,13 +49,13 @@
                         <% if (acc != null) {
                             if (acc.getRole_id() == 0) {%>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Đăng xuất (<%=acc.getEmail()%>)</a>
+                            <a class="nav-link" href="../../LogoutControl">Đăng xuất (<%=acc.getEmail()%>)</a>
                         </li>
                         <% } else { %>
-                        <% response.sendRedirect("../login.jsp"); %>
+                        <% response.sendRedirect("/../login.jsp"); %>
                         <% }
                         } else { %>
-                        <% response.sendRedirect("../login.jsp"); %>
+                        <% response.sendRedirect("/../login.jsp"); %>
                         <% } %>
                         <%--                        --%>
                     </ul>
@@ -75,49 +75,7 @@
                         <!-- <span class="disable">Trạng thái: Bị khoá</span> -->
                     </div>
                     <div class="account-action">
-                        <button class="edit-account"><a href="edit-account.jsp"><i
-                                class="fa-regular fa-pen-to-square"></i></a></button>
-                        <button class="delete-account"><i class="fa-regular fa-trash-can"></i></button>
-                    </div>
-                </div>
-                <!--  -->
-                <div class="account-item">
-                    <h3 class="email">vikhang17112002@gmail.com</h3>
-                    <input type="password" class="password" value="11111111" disabled>
-                    <div class="status">
-                        <span class="enable">Đang hoạt động</span>
-                        <!-- <span class="disable">Trạng thái: Bị khoá</span> -->
-                    </div>
-                    <div class="account-action">
-                        <button class="edit-account"><a href="edit-blog.html"><i
-                                class="fa-regular fa-pen-to-square"></i></a></button>
-                        <button class="delete-account"><i class="fa-regular fa-trash-can"></i></button>
-                    </div>
-                </div>
-                <!--  -->
-                <div class="account-item">
-                    <h3 class="email">vikhang17112002@gmail.com</h3>
-                    <input type="password" class="password" value="11111111" disabled>
-                    <div class="status">
-                        <!-- <span class="enable">Đang hoạt động</span> -->
-                        <span class="disable">Bị khoá</span>
-                    </div>
-                    <div class="account-action">
-                        <button class="edit-account"><a href="edit-blog.html"><i
-                                class="fa-regular fa-pen-to-square"></i></a></button>
-                        <button class="delete-account"><i class="fa-regular fa-trash-can"></i></button>
-                    </div>
-                </div>
-                <!--  -->
-                <div class="account-item">
-                    <h3 class="email">vikhang17112002@gmail.com</h3>
-                    <input type="password" class="password" value="11111111" disabled>
-                    <div class="status">
-                        <span class="enable">Đang hoạt động</span>
-                        <!-- <span class="disable">Trạng thái: Bị khoá</span> -->
-                    </div>
-                    <div class="account-action">
-                        <button class="edit-account"><a href="edit-blog.html"><i
+                        <button class="edit-account"><a href="./admin/edit-account.jsp"><i
                                 class="fa-regular fa-pen-to-square"></i></a></button>
                         <button class="delete-account"><i class="fa-regular fa-trash-can"></i></button>
                     </div>

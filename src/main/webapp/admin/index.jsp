@@ -38,12 +38,11 @@
                     <ul class="navbar-nav">
                         <li class="nav-item active">
                             <a class="nav-link" href="../admin/index.jsp"
-                            >Quản lí blog <span class="sr-only">(current)</span></a
-                            >
+                            >Quản lí blog <span class="sr-only">(current)</span></a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="manager-user.jsp">Quản lí người dùng</a>
+                            <a class="nav-link" href="./admin/manager-user.jsp">Quản lí người dùng</a>
                         </li>
 
                         <% HttpSession sessionAcc = request.getSession();
@@ -54,10 +53,10 @@
                             <a class="nav-link" href="LogoutControl">Đăng xuất (<%=acc.getEmail()%>)</a>
                         </li>
                         <% } else { %>
-                        <% response.sendRedirect("../../login.jsp"); %>
+                        <% response.sendRedirect("login.jsp"); %>
                         <% }
                         } else { %>
-                        <% response.sendRedirect("../../login.jsp"); %>
+                        <% response.sendRedirect("login.jsp"); %>
                         <% } %>
                         <%--                        --%>
                     </ul>

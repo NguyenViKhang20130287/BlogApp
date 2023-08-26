@@ -49,13 +49,13 @@
                 <% if (acc != null) {
                   if (acc.getRole_id() == 0) {%>
                 <li class="nav-item">
-                  <a class="nav-link" href="">Đăng xuất (<%=acc.getEmail()%>)</a>
+                  <a class="nav-link" href="LogoutControl">Đăng xuất (<%=acc.getEmail()%>)</a>
                 </li>
                 <% } else { %>
-                <% response.sendRedirect("../login.jsp"); %>
+                <% response.sendRedirect("../../login.jsp"); %>
                 <% }
                 } else { %>
-                <% response.sendRedirect("../login.jsp"); %>
+                <% response.sendRedirect("../../login.jsp"); %>
                 <% } %>
                 <%--                        --%>
               </ul>

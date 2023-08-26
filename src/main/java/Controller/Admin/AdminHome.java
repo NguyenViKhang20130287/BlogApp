@@ -9,8 +9,8 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "LoadAllBlogControl", value = "/LoadAllBlogAdminControl")
-public class LoadAllBlogAdminControl extends HttpServlet {
+@WebServlet(name = "AdminHome", value = "/AdminHome")
+public class AdminHome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");

@@ -46,12 +46,23 @@
                         </li>
                         <%--       CHECK ACCOUNT LOGGED                 --%>
                         <% HttpSession sessionAcc = request.getSession();
-                            User acc = (User) sessionAcc.getAttribute("accLogged");
-                            if (acc != null) { %>
-                        <li class="nav-item">
+                            User acc = (User) sessionAcc.getAttribute("accLogged");%>
+
+                        <% if (acc != null) { %>
+                        <%if (acc.getRole_id() == 0) {%>
+                        <li class="nav-item active">
                             <a class="nav-link" href="LoadBlogUser?user_id=<%=acc.getId()%>"><%=acc.getEmail()%>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="AdminHome">Quản lí website</a>
+                        </li>
+                        <% } else { %>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="LoadBlogUser?user_id=<%=acc.getId()%>"><%=acc.getEmail()%>
+                            </a>
+                        </li>
+                        <% } %>
                         <% } else { %>
                         <% response.sendRedirect("login.jsp"); %>
                         <% } %>

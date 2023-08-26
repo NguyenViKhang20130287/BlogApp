@@ -49,18 +49,29 @@
                         <li class="nav-item">
                             <a class="nav-link" href="post-blog.jsp">Đăng blog</a>
                         </li>
+                        <%--       CHECK ACCOUNT LOGGED                 --%>
                         <% HttpSession sessionAcc = request.getSession();
                             User acc = (User) sessionAcc.getAttribute("accLogged");%>
 
-                        <%--       CHECK ACCOUNT LOGGED                 --%>
                         <% if (acc != null) { %>
+                        <%if (acc.getRole_id() == 0) {%>
                         <li class="nav-item active">
-                            <a class="nav-link" href="blogs-user.jsp"><%=acc.getEmail()%>
+                            <a class="nav-link" href="LoadBlogUser?user_id=<%=acc.getId()%>"><%=acc.getEmail()%>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="AdminHome">Quản lí website</a>
+                        </li>
+                        <% } else { %>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="LoadBlogUser?user_id=<%=acc.getId()%>"><%=acc.getEmail()%>
+                            </a>
+                        </li>
+                        <% } %>
                         <% } else { %>
                         <% response.sendRedirect("login.jsp"); %>
                         <% } %>
+                        <%--                        --%>
                         <%--          LOGOUT ACCOUNT              --%>
 
                         <li class="nav-item">
