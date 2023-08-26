@@ -55,7 +55,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./admin/index.jsp">Quản lí website</a>
+                            <a class="nav-link" href="LoadAllBlogAdminControl">Quản lí website</a>
                         </li>
                         <% } else { %>
                         <li class="nav-item">

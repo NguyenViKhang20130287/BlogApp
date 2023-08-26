@@ -1,4 +1,6 @@
-<%@ page import="Entity.User" %><%----%>
+<%@ page import="Entity.User" %>
+<%@ page import="java.util.List" %>
+<%@ page import="Entity.Blog" %><%----%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%----%>
@@ -49,13 +51,13 @@
                         <% if (acc != null) {
                             if (acc.getRole_id() == 0) {%>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Đăng xuất (<%=acc.getEmail()%>)</a>
+                            <a class="nav-link" href="LogoutControl">Đăng xuất (<%=acc.getEmail()%>)</a>
                         </li>
                         <% } else { %>
-                        <% response.sendRedirect("../login.jsp"); %>
+                        <% response.sendRedirect("../../login.jsp"); %>
                         <% }
                         } else { %>
-                        <% response.sendRedirect("../login.jsp"); %>
+                        <% response.sendRedirect("../../login.jsp"); %>
                         <% } %>
                         <%--                        --%>
                     </ul>
@@ -66,79 +68,30 @@
         <div class="blogs-container">
             <div class="blogs-wrapper">
 
+                <% List<Blog> listBlog = (List<Blog>) request.getAttribute("listBlogAdmin");
+                    if (!listBlog.isEmpty()) {
+                        for (Blog b : listBlog) {%>
                 <div class="blog-item">
                     <div class="main">
-                        <h3 class="title">ten tieu de</h3>
-                        <span class="timer">2023-08-19 12:07:10</span>
+                        <h3 class="title"><%=b.getTitle()%>
+                        </h3>
+                        <span class="timer"><%=b.getCreateAt()%></span>
                         <p class="content">
-                            noi dung noi dung noi dung noi dung noi dung noi dung noi dung
-                            noi dungnoi dungnoi dung noi dung noi dung noi dung noi dung noi
-                            dung noi dung noi dung noi dungnoi dungnoi dung
+                            <%=b.getContent()%>
                         </p>
-                        <span class="email-User"> vikhang17112002@gmail.com </span>
+                        <span class="email-User"> <%=b.getEmail()%> </span>
                     </div>
                     <div class="action">
-                        <!-- <button class="edit-blog"><a href="edit-blog.jsp" style="color: #000;"><i class="fa-regular fa-pen-to-square"></i></a></button> -->
                         <button class="delete-blog"><i class="fa-regular fa-trash-can"></i></button>
                     </div>
-
-
                 </div>
-                <div class="blog-item">
-                    <div class="main">
-                        <h3 class="title">ten tieu de</h3>
-                        <span class="timer">2023-08-19 12:07:10</span>
-                        <p class="content">
-                            noi dung noi dung noi dung noi dung noi dung noi dung noi dung
-                            noi dungnoi dungnoi dung noi dung noi dung noi dung noi dung noi
-                            dung noi dung noi dung noi dungnoi dungnoi dung
-                        </p>
-                        <span class="email-User"> vikhang17112002@gmail.com </span>
-                    </div>
-                    <div class="action">
-                        <!-- <button class="edit-blog"><i class="fa-regular fa-pen-to-square"></i></button> -->
-                        <button class="delete-blog"><i class="fa-regular fa-trash-can"></i></button>
-                    </div>
-
-
+                <%
+                    }
+                } else {%>
+                <div class="empty-container">
+                    <h1>Không có bài đăng nào !</h1>
                 </div>
-                <div class="blog-item">
-                    <div class="main">
-                        <h3 class="title">ten tieu de</h3>
-                        <span class="timer">2023-08-19 12:07:10</span>
-                        <p class="content">
-                            noi dung noi dung noi dung noi dung noi dung noi dung noi dung
-                            noi dungnoi dungnoi dung noi dung noi dung noi dung noi dung noi
-                            dung noi dung noi dung noi dungnoi dungnoi dung
-                        </p>
-                        <span class="email-User"> vikhang17112002@gmail.com </span>
-                    </div>
-                    <div class="action">
-                        <!-- <button class="edit-blog"><i class="fa-regular fa-pen-to-square"></i></button> -->
-                        <button class="delete-blog"><i class="fa-regular fa-trash-can"></i></button>
-                    </div>
-
-
-                </div>
-                <div class="blog-item">
-                    <div class="main">
-                        <h3 class="title">ten tieu de</h3>
-                        <span class="timer">2023-08-19 12:07:10</span>
-                        <p class="content">
-                            noi dung noi dung noi dung noi dung noi dung noi dung noi dung
-                            noi dungnoi dungnoi dung noi dung noi dung noi dung noi dung noi
-                            dung noi dung noi dung noi dungnoi dungnoi dung
-                        </p>
-                        <span class="email-User"> vikhang17112002@gmail.com </span>
-                    </div>
-                    <div class="action">
-                        <!-- <button class="edit-blog"><i class="fa-regular fa-pen-to-square"></i></button> -->
-                        <button class="delete-blog"><i class="fa-regular fa-trash-can"></i></button>
-                    </div>
-
-
-                </div>
-
+                <% } %>
             </div>
         </div>
     </div>

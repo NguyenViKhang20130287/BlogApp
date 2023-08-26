@@ -22,10 +22,17 @@ nav {
   background: #fff;
 }
 
-.blogs-container, .accounts-container {
-  /* height: 1000px;
-    overflow-y: scroll; */
+.blogs-container, .accounts-container, .empty-container {
   margin-top: 50px;
+}
+
+.empty-container{
+  text-align: center;
+  padding: 20px;
+}
+
+.empty-container h1{
+  font-size: 25px;
 }
 
 .blogs-container .blogs-wrapper,

@@ -210,7 +210,7 @@ public class BlogDAO {
     }
 
     public static void main(String[] args) {
-//        System.out.println(new BlogDAO().getAllBlog());
+        System.out.println(new BlogDAO().getAllBlog());
 //        new BlogDAO().postBlog("title datetime", "content1 datetime", 3);
 //        System.out.println(new BlogDAO().getBlogOfUserLogged(5));
 //        List<Blog> listB = new BlogDAO().getBlogOfUserLogged(5);
@@ -227,7 +227,7 @@ public class BlogDAO {
 //        }
 //        System.out.println(new BlogDAO().getDataBlog(9));
 //        new BlogDAO().editBlog(9, "anhyeuem", "yeu cailon");
-        new BlogDAO().deleteBlog(8);
+//        new BlogDAO().deleteBlog(8);
     }
 
 }
