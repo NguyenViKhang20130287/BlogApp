@@ -138,16 +138,16 @@ public class BlogDAO {
     }
 
     // get 1 blog with id
-    public Blog getDataBlog(int blog_id){
+    public Blog getDataBlog(int blog_id) {
         Blog b = new Blog();
         String query = "SELECT * FROM blog WHERE blog.id = ?";
         try {
             statement = DBConnect.getInstall().get();
-            if(statement != null){
+            if (statement != null) {
                 ps = new DBConnect().getConnection().prepareStatement(query);
                 ps.setInt(1, blog_id);
                 rs = ps.executeQuery();
-                while (rs.next()){
+                while (rs.next()) {
                     b.setId(rs.getInt(1));
                     b.setTitle(rs.getString(2));
                     b.setContent(rs.getString(3));
@@ -165,11 +165,11 @@ public class BlogDAO {
     }
 
     // edit blog
-    public void editBlog(int blog_id, String title, String content){
+    public void editBlog(int blog_id, String title, String content) {
         String query = "UPDATE blog SET blog.title = ?, blog.content = ?, blog.updateAt = ? WHERE blog.id = ?";
         try {
             statement = DBConnect.getInstall().get();
-            if(statement != null){
+            if (statement != null) {
                 ps = new DBConnect().getConnection().prepareStatement(query);
                 ps.setString(1, title);
                 ps.setString(2, content);
@@ -181,6 +181,28 @@ public class BlogDAO {
 
                 ps.close();
 
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteBlog(int blog_id) {
+        String query_1 = "DELETE FROM blogs WHERE blogs.blog_id = ?";
+        String query_2 = "DELETE FROM blog WHERE blog.id = ?";
+        try {
+            statement = DBConnect.getInstall().get();
+            if (statement != null) {
+                ps = new DBConnect().getConnection().prepareStatement(query_1);
+                PreparedStatement ps_2 = new DBConnect().getConnection().prepareStatement(query_2);
+                ps.setInt(1, blog_id);
+                ps_2.setInt(1, blog_id);
+                ps.executeUpdate();
+                ps_2.executeUpdate();
+
+                System.out.println("Delete blog successfully ^^");
+                ps_2.close();
+                ps.close();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -204,7 +226,8 @@ public class BlogDAO {
 //            }
 //        }
 //        System.out.println(new BlogDAO().getDataBlog(9));
-        new BlogDAO().editBlog(9, "anhyeuem", "yeu cailon");
+//        new BlogDAO().editBlog(9, "anhyeuem", "yeu cailon");
+        new BlogDAO().deleteBlog(8);
     }
 
 }

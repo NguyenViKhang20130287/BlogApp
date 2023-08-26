@@ -47,7 +47,7 @@
                             User acc = (User) sessionAcc.getAttribute("accLogged");
                             if (acc != null) { %>
                         <li class="nav-item">
-                            <a class="nav-link" href="blogs-user.jsp"><%=acc.getEmail()%>
+                            <a class="nav-link" href="LoadBlogUser?user_id=<%=acc.getId()%>"><%=acc.getEmail()%>
                             </a>
                         </li>
                         <% } else { %>

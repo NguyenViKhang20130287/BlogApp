@@ -21,7 +21,7 @@
     <div class="wrapper">
         <header>
             <nav class="navbar fixed-top navbar-expand-lg bg-secondary navbar-dark">
-                <a class="navbar-brand" href="index.html" style="font-weight: 500; color: #fff;">BlogApp</a>
+                <a class="navbar-brand" href="index.jsp" style="font-weight: 500; color: #fff;">BlogApp</a>
                 <button
                         class="navbar-toggler"
                         type="button"
@@ -49,7 +49,7 @@
                             User acc = (User) sessionAcc.getAttribute("accLogged");
                             if (acc != null) { %>
                         <li class="nav-item">
-                            <a class="nav-link" href="blogs-user.jsp"><%=acc.getEmail()%>
+                            <a class="nav-link" href="LoadBlogUser?user_id=<%=acc.getId()%>"><%=acc.getEmail()%>
                             </a>
                         </li>
                         <% } else { %>

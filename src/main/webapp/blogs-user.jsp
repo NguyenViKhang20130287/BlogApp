@@ -19,6 +19,7 @@
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <link rel="stylesheet" href="./css/style.css"/>
+    <link rel="stylesheet" href="./css/toastMessage.css">
     <title>Bài đăng của tôi</title>
 </head>
 <body>
@@ -78,7 +79,7 @@
         <div class="blogs-container">
             <div class="blogs-wrapper">
 
-                <% List<Blog> listBlog = new BlogDAO().getBlogOfUserLogged(acc.getId());
+                <% List<Blog> listBlog = (List<Blog>) request.getAttribute("listBlogUserLogged");
                     if (!listBlog.isEmpty()) {
                         for (Blog b : listBlog) {%>
                 <div class="blog-item">
@@ -107,7 +108,10 @@
                     <div class="action">
                         <button class="edit-blog"><a href="LoadDataBlog?blogID=<%=b.getId()%>"><i
                                 class="fa-regular fa-pen-to-square"></i></a></button>
-                        <button class="delete-blog"><i class="fa-regular fa-trash-can"></i></button>
+                        <button class="delete-blog" type="button"
+                                onclick="deleteBlog(id=<%=b.getId()%>, user_id=<%=acc.getId()%>)">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
                     </div>
                 </div>
                 <% }
@@ -121,6 +125,51 @@
             </div>
         </div>
     </div>
+    <!-- The actual snackbar -->
+    <div id="snackbar"></div>
 </div>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+<script>
+    function toastsMessage(message) {
+        // Get the snackbar DIV
+        var x = document.getElementById("snackbar");
+
+        x.innerHTML = message
+
+        // Add the "show" class to DIV
+        x.className = "show";
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function () {
+            x.className = x.className.replace("show", "");
+        }, 3000);
+    }
+
+    function deleteBlog(id, user_id) {
+        $.ajax({
+            url: "DeleteBlogControl",
+            type: "post",
+            data: {
+                id: id,
+                user_id: user_id
+            },
+            success: function (data) {
+                console.log("data: ", data)
+                let blogs = document.querySelector('.blogs-wrapper')
+                blogs.innerHTML = data;
+                toastsMessage("Xóa thành công")
+
+            },
+            error: function (error) {
+                // alert("error")
+                console.log("error: ", error)
+            }
+        })
+    }
+
+</script>
+
 </html>
