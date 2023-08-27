@@ -209,6 +209,24 @@ public class BlogDAO {
         }
     }
 
+    //
+    public void deleteBlogNoUser() {
+        String query = "DELETE FROM blog WHERE blog.id  NOT IN (SELECT b.id FROM blog b JOIN blogs ON blog.id = blogs.blog_id)";
+        try {
+            statement = DBConnect.getInstall().get();
+            if (statement != null) {
+                ps = new DBConnect().getConnection().prepareStatement(query);
+                ps.executeUpdate();
+
+                System.out.println("Delete blogs no user successfully ^^");
+                ps.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public static void main(String[] args) {
         System.out.println(new BlogDAO().getAllBlog());
 //        new BlogDAO().postBlog("title datetime", "content1 datetime", 3);

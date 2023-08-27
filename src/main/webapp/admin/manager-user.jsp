@@ -13,7 +13,8 @@
             href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-    <link rel="stylesheet" href="./admin/css/style.css"/>
+    <link rel="stylesheet" href="./admin/css/main.css"/>
+    <link rel="stylesheet" href="./admin/css/toastMessage.css">
     <title>Blog App - Quản lí người dùng</title>
 </head>
 <body>
@@ -81,14 +82,23 @@
                     </div>
                     <% } else { %>
                     <div class="status">
-                        <span class="disable">Trạng thái: Bị khoá</span>
+                        <span class="disable">Bị khoá</span>
                     </div>
                     <% } %>
 
                     <div class="account-action">
-                        <button class="edit-account"><a href="./admin/edit-account.jsp"><i
-                                class="fa-regular fa-pen-to-square"></i></a></button>
-                        <button class="delete-account"><i class="fa-regular fa-trash-can"></i></button>
+                        <% if (u.getIs_locked() == 0) {%>
+                        <button class="edit-account" style="color: red">
+                            <i class="fa-solid fa-lock"></i>
+                        </button>
+                        <% } else if (u.getIs_locked() == 1) {%>
+                        <button class="edit-account" style="color: green">
+                            <i class="fa-solid fa-lock-open"></i>
+                        </button>
+                        <% } %>
+                        <button class="delete-account" style="color: red"
+                                onclick="deleteUser(id=<%=u.getId()%>)">
+                            <i class="fa-regular fa-trash-can"></i></button>
                     </div>
                 </div>
                 <%}%>
@@ -96,6 +106,49 @@
             </div>
         </div>
     </div>
+    <!-- The actual snackbar -->
+    <div id="snackbar"></div>
 </div>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+<script>
+    function toastsMessage(message) {
+        // Get the snackbar DIV
+        var x = document.getElementById("snackbar");
+
+        x.innerHTML = message
+
+        // Add the "show" class to DIV
+        x.className = "show";
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function () {
+            x.className = x.className.replace("show", "");
+        }, 3000);
+    }
+
+    function deleteUser(id) {
+        $.ajax({
+            url: "AdminDeleteUser",
+            type: "post",
+            data: {
+                id: id
+            },
+            success: function (data) {
+                // console.log("data: ", data)
+                let accounts = document.querySelector('.accounts-wrapper')
+                accounts.innerHTML = data;
+                toastsMessage("Xóa thành công")
+
+            },
+            error: function (error) {
+                // alert("error")
+                console.log("error: ", error)
+            }
+        })
+    }
+</script>
+
 </html>

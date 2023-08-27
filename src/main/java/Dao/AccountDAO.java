@@ -1,6 +1,7 @@
 package Dao;
 
 import DB.DBConnect;
+import Entity.Blog;
 import Entity.User;
 
 import java.sql.PreparedStatement;
@@ -67,17 +68,17 @@ public class AccountDAO {
     }
 
     // sign in account
-    public User signInAccount(String email, String password){
+    public User signInAccount(String email, String password) {
         User u = new User();
         String query = "SELECT * FROM `user` WHERE `user`.email = ? AND `user`.`password` = ?";
         try {
             statement = DBConnect.getInstall().get();
-            if(statement != null){
+            if (statement != null) {
                 ps = new DBConnect().getConnection().prepareStatement(query);
                 ps.setString(1, email);
                 ps.setString(2, password);
                 rs = ps.executeQuery();
-                while (rs.next()){
+                while (rs.next()) {
                     u.setId(rs.getInt(1));
                     u.setEmail(rs.getString(2));
                     u.setPassword(rs.getString(3));
@@ -96,13 +97,13 @@ public class AccountDAO {
     }
 
     // change password
-    public void changePassword(String email, String newPassword){
+    public void changePassword(String email, String newPassword) {
         String query = "UPDATE `user` SET `user`.`password` = ? WHERE `user`.email = ?";
         try {
             statement = DBConnect.getInstall().get();
-            if(statement != null){
+            if (statement != null) {
                 ps = new DBConnect().getConnection().prepareStatement(query);
-                ps.setString(2,email);
+                ps.setString(2, email);
                 ps.setString(1, newPassword);
                 ps.executeUpdate();
                 System.out.println("Change password successfully ^^");
@@ -115,15 +116,15 @@ public class AccountDAO {
     }
 
     // get all user
-    public List<User> getAllUser(){
+    public List<User> getAllUser() {
         List<User> listUser = new ArrayList<>();
         String query = "SELECT * FROM `user`";
         try {
             statement = DBConnect.getInstall().get();
-            if(statement != null){
+            if (statement != null) {
                 ps = new DBConnect().getConnection().prepareStatement(query);
                 rs = ps.executeQuery();
-                while (rs.next()){
+                while (rs.next()) {
                     User u = new User();
                     u.setId(rs.getInt(1));
                     u.setEmail(rs.getString(2));
@@ -141,11 +142,11 @@ public class AccountDAO {
     }
 
     // lock acc
-    public void lockAcc(String email){
+    public void lockAcc(String email) {
         String query = "UPDATE `user` SET `user`.is_locked = 1 WHERE `user`.email = ?";
         try {
             statement = DBConnect.getInstall().get();
-            if(statement != null){
+            if (statement != null) {
                 ps = new DBConnect().getConnection().prepareStatement(query);
                 ps.setString(1, email);
                 ps.executeUpdate();
@@ -158,11 +159,11 @@ public class AccountDAO {
         }
     }
 
-    public void upCount(String email){
+    public void upCount(String email) {
         String query = "UPDATE `user` SET `user`.count = `user`.count + 1 WHERE `user`.email = ?";
         try {
             statement = DBConnect.getInstall().get();
-            if(statement != null){
+            if (statement != null) {
                 ps = new DBConnect().getConnection().prepareStatement(query);
                 ps.setString(1, email);
                 ps.executeUpdate();
@@ -175,17 +176,42 @@ public class AccountDAO {
         }
     }
 
-    public void resetCount(String email){
+    public void resetCount(String email) {
         String query = "UPDATE `user` SET `user`.count = 0 WHERE `user`.email = ?";
         try {
             statement = DBConnect.getInstall().get();
-            if(statement != null){
+            if (statement != null) {
                 ps = new DBConnect().getConnection().prepareStatement(query);
                 ps.setString(1, email);
                 ps.executeUpdate();
 
                 System.out.println("Reset count successfully !!");
                 ps.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // delete User
+    public void deleteUser(int user_id) {
+        String query_1 = "DELETE FROM blogs WHERE blogs.user_id = ?";
+        String query_2 = "DELETE FROM `user` WHERE `user`.id = ?";
+        try {
+            statement = DBConnect.getInstall().get();
+            if (statement != null) {
+                ps = new DBConnect().getConnection().prepareStatement(query_1);
+                ps.setInt(1, user_id);
+                ps.executeUpdate();
+
+                //
+                PreparedStatement ps_2 = new DBConnect().getConnection().prepareStatement(query_2);
+                ps_2.setInt(1, user_id);
+                ps_2.executeUpdate();
+
+                System.out.println("Delete user successfully ^^");
+                ps.close();
+                ps_2.close();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
