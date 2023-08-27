@@ -16,11 +16,20 @@
     <title>Đăng nhập</title>
 </head>
 <body>
-<div
-        class="container-fluid d-flex justify-content-center align-items-center"
->
+<div class="container-fluid d-flex justify-content-center align-items-center">
     <div class="wrapper">
+
+        <%--        --%>
+        <% String message = (String) request.getAttribute("messageError");%>
+        <%--    --%>
+
         <h3 class="title">Đăng nhập tài khoản</h3>
+
+        <span style="font-weight: bold; font-size: 14px; color: red">
+            <%= message != null ? message : "" %>
+        </span>
+
+
         <form method="get" action="SignInControl">
             <div class="box">
                 <label for="">Email</label>

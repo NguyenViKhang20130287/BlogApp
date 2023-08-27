@@ -5,16 +5,19 @@ public class User {
     private String email;
     private String password;
     private int role_id;
+
+    private int count;
     private int is_locked;
 
     public User() {
     }
 
-    public User(int id, String email, String password, int role_id, int is_locked) {
+    public User(int id, String email, String password, int role_id, int count, int is_locked) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.role_id = role_id;
+        this.count = count;
         this.is_locked = is_locked;
     }
 
@@ -58,8 +61,21 @@ public class User {
         this.is_locked = is_locked;
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     @Override
     public String toString() {
-        return "user{" + "id=" + id + ", email='" + email + '\'' + ", password='" + password + '\'' + ", role_id=" + role_id + ", is_locked=" + is_locked + '}';
+        return id + " " +
+                email + " " +
+                password + " " +
+                role_id + " " +
+                count + " " +
+                is_locked;
     }
 }

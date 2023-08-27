@@ -31,7 +31,8 @@ public class AccountDAO {
                     u.setEmail(rs.getString(2));
                     u.setPassword(rs.getString(3));
                     u.setRole_id(rs.getInt(4));
-                    u.setIs_locked(rs.getInt(5));
+                    u.setCount(rs.getInt(5));
+                    u.setIs_locked(rs.getInt(6));
                     return u;
                 }
                 rs.close();
@@ -81,7 +82,8 @@ public class AccountDAO {
                     u.setEmail(rs.getString(2));
                     u.setPassword(rs.getString(3));
                     u.setRole_id(rs.getInt(4));
-                    u.setIs_locked(rs.getInt(5));
+                    u.setCount(rs.getInt(5));
+                    u.setIs_locked(rs.getInt(6));
                     return u;
                 }
                 rs.close();
@@ -127,7 +129,8 @@ public class AccountDAO {
                     u.setEmail(rs.getString(2));
                     u.setPassword(rs.getString(3));
                     u.setRole_id(rs.getInt(4));
-                    u.setIs_locked(rs.getInt(5));
+                    u.setCount(rs.getInt(5));
+                    u.setIs_locked(rs.getInt(6));
                     listUser.add(u);
                 }
             }
@@ -137,11 +140,64 @@ public class AccountDAO {
         return listUser;
     }
 
+    // lock acc
+    public void lockAcc(String email){
+        String query = "UPDATE `user` SET `user`.is_locked = 1 WHERE `user`.email = ?";
+        try {
+            statement = DBConnect.getInstall().get();
+            if(statement != null){
+                ps = new DBConnect().getConnection().prepareStatement(query);
+                ps.setString(1, email);
+                ps.executeUpdate();
+
+                System.out.println("LockAcc successfully !!");
+                ps.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void upCount(String email){
+        String query = "UPDATE `user` SET `user`.count = `user`.count + 1 WHERE `user`.email = ?";
+        try {
+            statement = DBConnect.getInstall().get();
+            if(statement != null){
+                ps = new DBConnect().getConnection().prepareStatement(query);
+                ps.setString(1, email);
+                ps.executeUpdate();
+
+                System.out.println("upCount successfully !!");
+                ps.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void resetCount(String email){
+        String query = "UPDATE `user` SET `user`.count = 0 WHERE `user`.email = ?";
+        try {
+            statement = DBConnect.getInstall().get();
+            if(statement != null){
+                ps = new DBConnect().getConnection().prepareStatement(query);
+                ps.setString(1, email);
+                ps.executeUpdate();
+
+                System.out.println("Reset count successfully !!");
+                ps.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) {
 //        new AccountDAO().signUpAccount("k1@gmail.com", "11111111");
 //        System.out.println(new AccountDAO().signInAccount("vik080817@gmail.com", "11111111"));
 //        new AccountDAO().changePassword("vik080817@gmail.com", "11111111");
-        System.out.println(new AccountDAO().getAllUser());
+//        System.out.println(new AccountDAO().getAllUser());
+        System.out.println(new AccountDAO().checkEmailIsExist("vik080817@gmail.com"));
     }
 
 }
