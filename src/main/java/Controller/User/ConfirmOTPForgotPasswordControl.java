@@ -21,14 +21,14 @@ public class ConfirmOTPForgotPasswordControl extends HttpServlet {
 
         int otpIsSent = (int) session.getAttribute("otp");
         int otpValue = Integer.parseInt(request.getParameter("otp-code"));
+        String message = "";
 
         if(otpValue == otpIsSent){
             response.sendRedirect("change-password.jsp");
         }else{
-            out.println("<script type=\"text/javascript\">");
-            out.println("alert('Mã xác nhận không chính xác !!!');");
-            out.println("location='otp-code-forgot-pass.jsp';");
-            out.println("</script>");
+            message = "Mã xác nhận không chính xác !!!";
+            request.setAttribute("messageError", message);
+            request.getRequestDispatcher("otp-code-forgot-pass.jsp").forward(request, response);
         }
 
     }

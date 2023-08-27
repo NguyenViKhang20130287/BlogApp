@@ -25,6 +25,8 @@ public class ConfirmOTPControl extends HttpServlet {
         int otpIsSent = (int) session.getAttribute("otp");
         int otpValue = Integer.parseInt(request.getParameter("otp-code"));
 
+        String message = "";
+
 //        response.getWriter().println("OTP is sent: " + otpIsSent);
 //        response.getWriter().println("OTP value: " + otpValue);
 
@@ -38,10 +40,9 @@ public class ConfirmOTPControl extends HttpServlet {
             out.println("location='login.jsp';");
             out.println("</script>");
         }else{
-            out.println("<script type=\"text/javascript\">");
-            out.println("alert('Mã xác nhận không chính xác !!!');");
-            out.println("location='otp-code.jsp';");
-            out.println("</script>");
+            message = "Mã xác nhận không chính xác !!!";
+            request.setAttribute("messageError", message);
+            request.getRequestDispatcher("otp-code.jsp").forward(request, response);
         }
     }
 

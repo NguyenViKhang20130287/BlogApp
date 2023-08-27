@@ -28,6 +28,8 @@ public class SignUpControl extends HttpServlet {
         String emailValue = request.getParameter("email");
         String passwordValue = request.getParameter("password");
         String confirmPasswordValue = request.getParameter("confirm-password");
+
+        String messageError = "";
 //        response.getWriter().println("info: " + emailValue + " " + passwordValue + " " + confirmPasswordValue);
         PrintWriter out = response.getWriter();
 
@@ -37,10 +39,10 @@ public class SignUpControl extends HttpServlet {
         AccountDAO accountDAO = new AccountDAO();
         User user = accountDAO.checkEmailIsExist(emailValue);
         if (user != null) {
-            out.println("<script type=\"text/javascript\">");
-            out.println("alert('Tài khoản email đã tồn tại !!!');");
-            out.println("location='sign-up.jsp';");
-            out.println("</script>");
+            //
+            messageError = "Tài khoản email đã tồn tại !!!";
+            request.setAttribute("messageError", messageError);
+            request.getRequestDispatcher("sign-up.jsp").forward(request, response);
         } else {
             // random otp code
             Random rand = new Random();

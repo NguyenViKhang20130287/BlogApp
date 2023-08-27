@@ -27,14 +27,16 @@ public class ForgotPasswordControl extends HttpServlet {
         RequestDispatcher dispatcher = null;
         HttpSession mySession = request.getSession();
         int otpvalue = 0;
+
+        String messageError = "";
+
 //        response.getWriter().println(email);
         PrintWriter out = response.getWriter();
         User acc = new AccountDAO().checkEmailIsExist(email);
         if (acc == null) {
-            out.println("<script type=\"text/javascript\">");
-            out.println("alert('Tài khoản email chưa được đăng kí !!!');");
-            out.println("location='forgot-password.jsp';");
-            out.println("</script>");
+            messageError = "Tài khoản email chưa được đăng kí !!!";
+            request.setAttribute("messageError", messageError);
+            request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
         } else {
             // random otp code
             Random rand = new Random();

@@ -19,6 +19,12 @@
 >
     <div class="wrapper">
         <h3 class="title">Nhập mã xác nhận</h3>
+        <%--        --%>
+        <% String message = (String) request.getAttribute("messageError");%>
+        <%--    --%>
+        <span style="font-weight: bold; font-size: 14px; color: red">
+            <%= message != null ? message : "" %>
+        </span>
         <form method="get" action="ConfirmOTPForgotPasswordControl">
             <div class="box">
                 <label for="">Mã xác nhận</label>
