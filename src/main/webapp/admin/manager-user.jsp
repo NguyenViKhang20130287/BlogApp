@@ -88,11 +88,13 @@
 
                     <div class="account-action">
                         <% if (u.getIs_locked() == 0) {%>
-                        <button class="edit-account" style="color: red">
+                        <button class="edit-account" style="color: red"
+                        onclick="lockAcc(id=<%=u.getId()%>)">
                             <i class="fa-solid fa-lock"></i>
                         </button>
                         <% } else if (u.getIs_locked() == 1) {%>
-                        <button class="edit-account" style="color: green">
+                        <button class="edit-account" style="color: green"
+                            onclick="unLockAcc(id=<%=u.getId()%>)">
                             <i class="fa-solid fa-lock-open"></i>
                         </button>
                         <% } %>
@@ -141,6 +143,48 @@
                 let accounts = document.querySelector('.accounts-wrapper')
                 accounts.innerHTML = data;
                 toastsMessage("Xóa thành công")
+
+            },
+            error: function (error) {
+                // alert("error")
+                console.log("error: ", error)
+            }
+        })
+    }
+
+    function unLockAcc(id) {
+        $.ajax({
+            url: "AdminUnLockAcc",
+            type: "post",
+            data: {
+                id: id
+            },
+            success: function (data) {
+                // console.log("data: ", data)
+                let account_wrapper = document.querySelector('.accounts-wrapper')
+                account_wrapper.innerHTML = data;
+                toastsMessage("Mở khoá tài khoản thành công")
+
+            },
+            error: function (error) {
+                // alert("error")
+                console.log("error: ", error)
+            }
+        })
+    }
+
+    function lockAcc(id) {
+        $.ajax({
+            url: "AdminLockAcc",
+            type: "post",
+            data: {
+                id: id
+            },
+            success: function (data) {
+                // console.log("data: ", data)
+                let account_wrapper = document.querySelector('.accounts-wrapper')
+                account_wrapper.innerHTML = data;
+                toastsMessage("Khoá tài khoản thành công")
 
             },
             error: function (error) {

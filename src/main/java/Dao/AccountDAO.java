@@ -159,6 +159,23 @@ public class AccountDAO {
         }
     }
 
+    public void lockAccWithId(int user_id) {
+        String query = "UPDATE `user` SET `user`.is_locked = 1 WHERE `user`.id = ?";
+        try {
+            statement = DBConnect.getInstall().get();
+            if (statement != null) {
+                ps = new DBConnect().getConnection().prepareStatement(query);
+                ps.setInt(1, user_id);
+                ps.executeUpdate();
+
+                System.out.println("LockAcc successfully !!");
+                ps.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void upCount(String email) {
         String query = "UPDATE `user` SET `user`.count = `user`.count + 1 WHERE `user`.email = ?";
         try {
@@ -212,6 +229,24 @@ public class AccountDAO {
                 System.out.println("Delete user successfully ^^");
                 ps.close();
                 ps_2.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // unlock
+    public void unLockAcc(int user_id){
+        String query = "UPDATE `user` SET `user`.is_locked = 0 WHERE `user`.id = ?";
+        try {
+            statement = DBConnect.getInstall().get();
+            if(statement != null){
+                ps = new DBConnect().getConnection().prepareStatement(query);
+                ps.setInt(1, user_id);
+                ps.executeUpdate();
+
+                System.out.println("Unlock successfully ^^");
+                ps.close();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
