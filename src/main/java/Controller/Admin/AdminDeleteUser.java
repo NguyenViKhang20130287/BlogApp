@@ -24,14 +24,16 @@ public class AdminDeleteUser extends HttpServlet {
         return result;
     }
 
-    public String checkStatusBtns(int is_locked) {
+    public String checkStatusBtns(int is_locked, int user_id) {
         String result = "";
         if (is_locked == 0) {
-            result = "<button class=\"edit-account\" style=\"color: red\">\n" +
+            result = "<button class=\"edit-account\" style=\"color: red\"\n" +
+                    "                        onclick=\"lockAcc(id=" + user_id + ")\">\n" +
                     "                            <i class=\"fa-solid fa-lock\"></i>\n" +
                     "                        </button>";
         } else if (is_locked == 1) {
-            result = "<button class=\"edit-account\" style=\"color: green\">\n" +
+            result = "<button class=\"edit-account\" style=\"color: green\"\n" +
+                    "                            onclick=\"unLockAcc(id= " + user_id + ")\">\n" +
                     "                            <i class=\"fa-solid fa-lock-open\"></i>\n" +
                     "                        </button>";
         }
@@ -66,7 +68,7 @@ public class AdminDeleteUser extends HttpServlet {
                             checkStatus(u.getIs_locked()) +
                             "\n" +
                             "                    <div class=\"account-action\">\n" +
-                            checkStatusBtns(u.getIs_locked()) +
+                            checkStatusBtns(u.getIs_locked(), u.getId()) +
                             "                        <button class=\"delete-account\" style=\"color: red\"\n" +
                             "                                onclick=\"deleteUser(id=<%=u.getId()%>)\">\n" +
                             "                            <i class=\"fa-regular fa-trash-can\"></i></button>\n" +

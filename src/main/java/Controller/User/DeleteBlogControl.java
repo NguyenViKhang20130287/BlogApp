@@ -2,6 +2,7 @@ package Controller.User;
 
 import Dao.BlogDAO;
 import Entity.Blog;
+import Entity.User;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -65,8 +66,8 @@ public class DeleteBlogControl extends HttpServlet {
 
         new BlogDAO().deleteBlog(blog_id);
 
-        int user_id = Integer.parseInt(request.getParameter("user_id"));
-        List<Blog> listBlog = new BlogDAO().getBlogOfUserLogged(user_id);
+        User user = (User) request.getSession().getAttribute("accLogged");
+        List<Blog> listBlog = new BlogDAO().getBlogOfUserLogged(user.getId());
 
         for (Blog b : listBlog) {
             String data = "<div class=\"blog-item\">\n" +
@@ -82,7 +83,7 @@ public class DeleteBlogControl extends HttpServlet {
                     "                        <button class=\"edit-blog\"><a href=\"LoadDataBlog?blogID=" + b.getId() + "\"><i\n" +
                     "                                class=\"fa-regular fa-pen-to-square\"></i></a></button>\n" +
                     "                        <button class=\"delete-blog\" type=\"button\"\n" +
-                    "                                onclick=\"deleteBlog(id=" + b.getId() + ", user_id=" + user_id + ")\">\n" +
+                    "                                onclick=\"deleteBlog(id=" + b.getId() + ")\">\n" +
                     "                            <i class=\"fa-regular fa-trash-can\"></i>\n" +
                     "                        </button>\n" +
                     "                    </div>\n" +

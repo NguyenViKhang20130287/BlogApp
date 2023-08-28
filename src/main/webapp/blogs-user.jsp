@@ -120,7 +120,7 @@
                         <button class="edit-blog"><a href="LoadDataBlog?blogID=<%=b.getId()%>"><i
                                 class="fa-regular fa-pen-to-square"></i></a></button>
                         <button class="delete-blog" type="button"
-                                onclick="deleteBlog(id=<%=b.getId()%>, user_id=<%=acc.getId()%>)">
+                                onclick="deleteBlog(id=<%=b.getId()%>)">
                             <i class="fa-regular fa-trash-can"></i>
                         </button>
                     </div>
@@ -159,13 +159,12 @@
         }, 3000);
     }
 
-    function deleteBlog(id, user_id) {
+    function deleteBlog(id) {
         $.ajax({
             url: "DeleteBlogControl",
             type: "post",
             data: {
-                id: id,
-                user_id: user_id
+                id: id
             },
             success: function (data) {
                 console.log("data: ", data)

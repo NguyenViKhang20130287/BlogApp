@@ -49,11 +49,11 @@
                         <% HttpSession sessionAcc = request.getSession();
                             User acc = (User) sessionAcc.getAttribute("accLogged");%>
                         <% if (acc != null) {
-                            if (acc.getRole_id() == 0) {%>
+                            if (acc.getRole_id() == 0 && acc.getIs_locked() == 0) {%>
                         <li class="nav-item">
                             <a class="nav-link" href="LogoutControl">Đăng xuất (<%=acc.getEmail()%>)</a>
                         </li>
-                        <% } else { %>
+                        <% } else if(acc.getRole_id() == 0 && acc.getIs_locked() == 1) { %>
                         <% response.sendRedirect("login.jsp"); %>
                         <% }
                         } else { %>

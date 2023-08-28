@@ -38,7 +38,9 @@ public class BlogDAO {
                 "\tblog.content,\n" +
                 "\tblog.createAt,\n" +
                 "\tblog.updateAt,\n" +
-                "\t`user`.email";
+                "\t`user`.email\n" +
+                "\tORDER BY\n" +
+                "\tblog.updateAt DESC";
 
         try {
             statement = DBConnect.getInstall().get();
@@ -112,9 +114,19 @@ public class BlogDAO {
     // load blog of account logged
     public List<Blog> getBlogOfUserLogged(int user_id) {
         List<Blog> listBlog = new ArrayList<>();
-        String query = "SELECT blog.id, blog.title, blog.content, blog.createAt, blog.updateAt " +
-                "FROM blog JOIN blogs ON blog.id = blogs.blog_id " +
-                "WHERE blogs.user_id = ?";
+        String query = "SELECT\n" +
+                "\tblog.id,\n" +
+                "\tblog.title,\n" +
+                "\tblog.content,\n" +
+                "\tblog.createAt,\n" +
+                "\tblog.updateAt \n" +
+                "FROM\n" +
+                "\tblog\n" +
+                "\tJOIN blogs ON blog.id = blogs.blog_id \n" +
+                "WHERE\n" +
+                "\tblogs.user_id = ? \n" +
+                "GROUP BY\n" +
+                "\tblog.updateAt DESC";
         try {
             statement = DBConnect.getInstall().get();
             if (statement != null) {
