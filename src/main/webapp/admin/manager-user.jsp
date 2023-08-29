@@ -43,7 +43,7 @@
                         </li>
 
                         <li class="nav-item active">
-                            <a class="nav-link" href="manager-user.jsp">Quản lí người dùng</a>
+                            <a class="nav-link" href="AdminUserManager">Quản lí người dùng</a>
                         </li>
 
                         <% HttpSession sessionAcc = request.getSession();

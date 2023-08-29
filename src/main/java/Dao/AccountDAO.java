@@ -210,6 +210,23 @@ public class AccountDAO {
         }
     }
 
+    public void resetCountWithID(int user_id) {
+        String query = "UPDATE `user` SET `user`.count = 0 WHERE `user`.id = ?";
+        try {
+            statement = DBConnect.getInstall().get();
+            if (statement != null) {
+                ps = new DBConnect().getConnection().prepareStatement(query);
+                ps.setInt(1, user_id);
+                ps.executeUpdate();
+
+                System.out.println("Reset count successfully !!");
+                ps.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     // delete User
     public void deleteUser(int user_id) {
         String query_1 = "DELETE FROM blogs WHERE blogs.user_id = ?";

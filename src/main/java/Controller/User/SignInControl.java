@@ -41,7 +41,7 @@ public class SignInControl extends HttpServlet {
                 new AccountDAO().resetCount(emailIsExist.getEmail());
                 HttpSession session = request.getSession();
                 session.setAttribute("accLogged", acc);
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("Home");
             }
 
             // email dung va mat khau dung va bi khoa

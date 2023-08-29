@@ -70,7 +70,7 @@ public class AdminDeleteUser extends HttpServlet {
                             "                    <div class=\"account-action\">\n" +
                             checkStatusBtns(u.getIs_locked(), u.getId()) +
                             "                        <button class=\"delete-account\" style=\"color: red\"\n" +
-                            "                                onclick=\"deleteUser(id=<%=u.getId()%>)\">\n" +
+                            "                                onclick=\"deleteUser(id=" + u.getId() + ")\">\n" +
                             "                            <i class=\"fa-regular fa-trash-can\"></i></button>\n" +
                             "                    </div>\n" +
                             "                </div>"

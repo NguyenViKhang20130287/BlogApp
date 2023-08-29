@@ -59,6 +59,7 @@ public class AdminUnLockAcc extends HttpServlet {
 
         int user_id = Integer.parseInt(request.getParameter("id"));
         new AccountDAO().unLockAcc(user_id);
+        new AccountDAO().resetCountWithID(user_id);
         List<User> users = new AccountDAO().getAllUser();
         for (User u : users) {
             out.println(

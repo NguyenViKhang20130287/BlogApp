@@ -22,7 +22,7 @@
     <div class="wrapper">
         <header>
             <nav class="navbar fixed-top navbar-expand-lg bg-secondary navbar-dark">
-                <a class="navbar-brand" href="index.jsp" style="font-weight: 500; color: #fff;">BlogApp</a>
+                <a class="navbar-brand" href="Home" style="font-weight: 500; color: #fff;">BlogApp</a>
                 <button
                         class="navbar-toggler"
                         type="button"
@@ -37,7 +37,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.jsp"
+                            <a class="nav-link" href="Home"
                             >Trang chủ <span class="sr-only">(current)</span></a
                             >
                         </li>
